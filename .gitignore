@@ -58,3 +58,5 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Unity Assets
+/Assets/Isometric Pack 3d/*
