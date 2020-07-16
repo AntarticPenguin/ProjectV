@@ -17,8 +17,31 @@ public class InteractiveModeInput : IInputMode
 		{
 			if (!EventSystem.current.IsPointerOverGameObject())
 			{
-				_cameraTarget = new CameraMoveToTarget(_camera.transform, Input.mousePosition);
-				_cameraTarget.Excute();
+				RaycastHit hit;
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				if (Physics.Raycast(ray, out hit))
+				{
+					if(hit.collider.tag == "GoldChest_A")
+					{
+						//보물상자 클릭. 골드획득
+						CurrencySystem.Instance.AddGold(500);
+					}
+					else
+					{
+						//카메라를 타겟 위치로 이동시킨다
+						Vector3 target = hit.collider.transform.position;
+						if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit))
+						{
+							if (hit.collider)
+							{
+								Vector3 orig = hit.collider.transform.position;
+								Vector3 newPos = target - orig;
+								newPos.y = 0;
+								_camera.transform.position += newPos;
+							}
+						}
+					}
+				}
 			}
 		}
 	}
