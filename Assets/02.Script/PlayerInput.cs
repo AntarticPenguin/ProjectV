@@ -18,7 +18,6 @@ public class PlayerInput : MonoBehaviour
 	[SerializeField] private Grid _grid;
 
 	public GameObject groundObject;
-	public GameObject selectedPrefab;
 
 	void Start()
 	{
@@ -26,7 +25,7 @@ public class PlayerInput : MonoBehaviour
 		_camera.transform.forward = new Vector3(-0.5f, -0.6f, 0.7f);
 
 		_cameraMode = new InteractiveModeInput(_camera);
-		_editMode = new EditModeInput(_camera, groundObject, selectedPrefab);
+		_editMode = new EditModeInput(_camera, groundObject);
 		_inputMode = _cameraMode;
 		_EditCanvas.enabled = false;
 	}
@@ -78,6 +77,8 @@ public class PlayerInput : MonoBehaviour
 	{		
 		_EditCanvas.enabled = false;
 		_inputMode = _cameraMode;
+		GameManager.Instance.playerInputMode = _inputMode;
+
 		_editMode.SwitchPreview(false);
 	}
 
@@ -85,6 +86,8 @@ public class PlayerInput : MonoBehaviour
 	{
 		_EditCanvas.enabled = true;
 		_inputMode = _editMode;
+		GameManager.Instance.playerInputMode = _inputMode;
+
 		_editMode.SwitchPreview(true);
 	}
 }

@@ -21,10 +21,11 @@ public class InteractiveModeInput : IInputMode
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 				if (Physics.Raycast(ray, out hit))
 				{
-					if(hit.collider.tag == "GoldChest_A")
+					if(hit.collider.tag == "GoldChest")
 					{
 						//보물상자 클릭. 골드획득
-						CurrencySystem.Instance.AddGold(500);
+						var comp = hit.collider.GetComponent<IInteractive>();
+						comp.Interact();
 					}
 					else
 					{

@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Unexplored
   - Ground
-  - GoldChest_A
+  - GoldChest
   layers:
   - Default
   - TransparentFX

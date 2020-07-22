@@ -11,22 +11,17 @@ public class EditModeInput : IInputMode
 
 	private bool _bCanBuild;
 
-	public EditModeInput(Camera camera, GameObject groundObject, GameObject selectedPrefab)
+	public EditModeInput(Camera camera, GameObject groundObject)
 	{
 		_camera = camera;
 		_groundRoot = groundObject;
-		_selectedPrefab = selectedPrefab;
-
-		_previewObject = Object.Instantiate(_selectedPrefab);
-		_previewObject.transform.localScale = Vector3.one;
-		_previewObject.transform.position = Vector3.zero;
-		_previewObject.name = "PreviewObject";
-		_previewObject.layer = LayerMask.NameToLayer("Default");
-		_previewObject.SetActive(false);
 	}
 
 	public void Update()
 	{
+		if (_previewObject == null)
+			return;
+
 		RaycastHit hit;
 		LayerMask mask = LayerMask.GetMask("Tile");
 		Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
@@ -78,7 +73,8 @@ public class EditModeInput : IInputMode
 
 	public void SwitchPreview(bool val)
 	{
-		_previewObject.SetActive(val);
+		if(_previewObject != null)
+			_previewObject.SetActive(val);
 	}
 
 	public void SetPreviewObjectColor(Color color)
@@ -88,5 +84,19 @@ public class EditModeInput : IInputMode
 		{
 			comps[i].material.color = color;
 		}
+	}
+
+	public void SetSelectedPrefab(GameObject prefab)
+	{
+		if (_previewObject != null)
+			Object.DestroyImmediate(_previewObject);
+
+		_selectedPrefab = prefab;
+
+		_previewObject = Object.Instantiate(_selectedPrefab);
+		_previewObject.transform.localScale = Vector3.one;
+		_previewObject.transform.position = Input.mousePosition;
+		_previewObject.name = "PreviewObject";
+		_previewObject.layer = LayerMask.NameToLayer("Default");
 	}
 }

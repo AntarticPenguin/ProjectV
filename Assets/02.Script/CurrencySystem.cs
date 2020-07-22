@@ -31,11 +31,19 @@ public class CurrencySystem : MonoBehaviour
 		}
 	}
 
+	private void Awake()
+	{
+		DontDestroyOnLoad(gameObject);
+	}
+
 	private int _remainGold;
 	private int _remainTicket;
 
 	public delegate void GetGoldDelegate();
 	public GetGoldDelegate OnGetGoldCallback;
+
+	public delegate void GetTicketDelegate();
+	public GetTicketDelegate OnGetTicketCallback;
 
 	public int GetRemainGold()
 	{
@@ -52,5 +60,11 @@ public class CurrencySystem : MonoBehaviour
 		_remainGold += amount;
 
 		OnGetGoldCallback?.Invoke();
+	}
+
+	public void AddTicket(int amount)
+	{
+		_remainTicket += amount;
+		OnGetTicketCallback?.Invoke();
 	}
 }

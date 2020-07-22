@@ -8,10 +8,11 @@ public class CurrenyUI : MonoBehaviour
 	public Text _textGold;
 	public Text _textTicket;
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
 		CurrencySystem.Instance.OnGetGoldCallback += UpdateUI;
+		CurrencySystem.Instance.OnGetTicketCallback += UpdateUI;
 		UpdateUI();
 	}
 
