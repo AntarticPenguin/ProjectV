@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class PlayerInput : MonoBehaviour
 {
 	private ICommand _cameraUp, _cameraDown, _cameraLeft, _cameraRight;
+	public Joystick _joystick;
 
 	private Camera _camera;
 
@@ -32,22 +33,22 @@ public class PlayerInput : MonoBehaviour
 
 	void Update()
     {
-		if (Input.GetKey(KeyCode.A))
+		if (Input.GetKey(KeyCode.A) || _joystick.Horizontal == -1 )
 		{
 			_cameraLeft = new CameraMoveLeft(_camera.transform, _cameraSpeed);
 			_cameraLeft.Excute();
 		}
-		else if (Input.GetKey(KeyCode.D))
+		else if (Input.GetKey(KeyCode.D) || _joystick.Horizontal == 1)
 		{
 			_cameraRight = new CameraMoveRight(_camera.transform, _cameraSpeed);
 			_cameraRight.Excute();
 		}
-		else if (Input.GetKey(KeyCode.W))
+		else if (Input.GetKey(KeyCode.W) || _joystick.Vertical == 1)
 		{
 			_cameraUp = new CameraMoveUp(_camera.transform, _cameraSpeed);
 			_cameraUp.Excute();
 		}
-		else if (Input.GetKey(KeyCode.S))
+		else if (Input.GetKey(KeyCode.S) || _joystick.Vertical == -1)
 		{
 			_cameraDown = new CameraMoveDown(_camera.transform, _cameraSpeed);
 			_cameraDown.Excute();
