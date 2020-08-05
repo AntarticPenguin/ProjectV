@@ -30,5 +30,6 @@ public class GameManager : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 	}
 
-	public IInputMode playerInputMode { get; set; }
+	public EditModeInput _editModeInput;
+	public InteractiveModeInput _interactiveModeInput;
 }

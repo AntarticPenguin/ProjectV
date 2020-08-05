@@ -11,8 +11,7 @@ public class CurrenyUI : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-		CurrencySystem.Instance.OnGetGoldCallback += UpdateUI;
-		CurrencySystem.Instance.OnGetTicketCallback += UpdateUI;
+		CurrencySystem.Instance.OnCurrencyUpdateCallback += UpdateUI;
 		UpdateUI();
 	}
 

@@ -16,7 +16,6 @@ public class PlayerInput : MonoBehaviour
 
 	[SerializeField] private float _cameraSpeed = 50.0f;
 	[SerializeField] private Canvas _EditCanvas = null;
-	[SerializeField] private Grid _grid;
 
 	public GameObject groundObject;
 
@@ -27,6 +26,9 @@ public class PlayerInput : MonoBehaviour
 
 		_cameraMode = new InteractiveModeInput(_camera);
 		_editMode = new EditModeInput(_camera, groundObject);
+
+		GameManager.Instance._interactiveModeInput = _cameraMode;
+		GameManager.Instance._editModeInput = _editMode;
 		_inputMode = _cameraMode;
 		_EditCanvas.enabled = false;
 	}
@@ -78,7 +80,6 @@ public class PlayerInput : MonoBehaviour
 	{		
 		_EditCanvas.enabled = false;
 		_inputMode = _cameraMode;
-		GameManager.Instance.playerInputMode = _inputMode;
 
 		_editMode.SwitchPreview(false);
 	}
@@ -87,7 +88,6 @@ public class PlayerInput : MonoBehaviour
 	{
 		_EditCanvas.enabled = true;
 		_inputMode = _editMode;
-		GameManager.Instance.playerInputMode = _inputMode;
 
 		_editMode.SwitchPreview(true);
 	}
