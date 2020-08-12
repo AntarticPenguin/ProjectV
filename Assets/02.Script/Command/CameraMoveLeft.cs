@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class CameraMoveLeft : ICommand
 {
-	private Transform _camera;
 	private float _speed;
 
-	public CameraMoveLeft(Transform cameraTransform, float speed)
+	public CameraMoveLeft(float speed)
 	{
-		_camera = cameraTransform;
 		_speed = speed;
 	}
 
 	public void Excute()
 	{
-		_camera.Translate(-_camera.right * _speed * Time.deltaTime, Space.World);
+		var camTransform = GameManager.Instance.GetMainCamera().transform;
+		camTransform.Translate(-camTransform.right * _speed * Time.deltaTime, Space.World);
+		//_camera.Translate(-_camera.right * _speed * Time.deltaTime, Space.World);
 	}
 }

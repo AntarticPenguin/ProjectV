@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using Cinemachine;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -24,7 +24,7 @@ public class PlayerInput : MonoBehaviour
 		_camera = Camera.main;
 		_camera.transform.forward = new Vector3(-0.5f, -0.6f, 0.7f);
 
-		_cameraMode = new InteractiveModeInput(_camera);
+		_cameraMode = new InteractiveModeInput();
 		_editMode = new EditModeInput(_camera, groundObject);
 
 		GameManager.Instance._interactiveModeInput = _cameraMode;
@@ -37,22 +37,22 @@ public class PlayerInput : MonoBehaviour
     {
 		if (Input.GetKey(KeyCode.A) || _joystick.Horizontal == -1 )
 		{
-			_cameraLeft = new CameraMoveLeft(_camera.transform, _cameraSpeed);
+			_cameraLeft = new CameraMoveLeft(_cameraSpeed);
 			_cameraLeft.Excute();
 		}
 		else if (Input.GetKey(KeyCode.D) || _joystick.Horizontal == 1)
 		{
-			_cameraRight = new CameraMoveRight(_camera.transform, _cameraSpeed);
+			_cameraRight = new CameraMoveRight(_cameraSpeed);
 			_cameraRight.Excute();
 		}
 		else if (Input.GetKey(KeyCode.W) || _joystick.Vertical == 1)
 		{
-			_cameraUp = new CameraMoveUp(_camera.transform, _cameraSpeed);
+			_cameraUp = new CameraMoveUp(_cameraSpeed);
 			_cameraUp.Excute();
 		}
 		else if (Input.GetKey(KeyCode.S) || _joystick.Vertical == -1)
 		{
-			_cameraDown = new CameraMoveDown(_camera.transform, _cameraSpeed);
+			_cameraDown = new CameraMoveDown(_cameraSpeed);
 			_cameraDown.Excute();
 		}
 		else if(Input.GetKeyDown(KeyCode.R))

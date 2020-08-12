@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class CameraMoveDown : ICommand
 {
-	private Transform _camera;
 	private float _speed;
 
-	public CameraMoveDown(Transform cameraTransform, float speed)
+	public CameraMoveDown(float speed)
 	{
-		_camera = cameraTransform;
 		_speed = speed;
 	}
 
 	public void Excute()
 	{
-		Vector3 horizontalDir = Quaternion.AngleAxis(-36.03f, _camera.right) * _camera.forward;
-		_camera.Translate(-horizontalDir * _speed * Time.deltaTime, Space.World);
+		var camTransform = GameManager.Instance.GetMainCamera().transform;
+		float angle = camTransform.eulerAngles.x;
+
+		Vector3 horizontalDir = Quaternion.AngleAxis(-angle, camTransform.right) * camTransform.forward;
+		camTransform.Translate(-horizontalDir * _speed * Time.deltaTime, Space.World);
 	}
 }

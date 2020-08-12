@@ -1,0 +1,42 @@
+{
+  "camera01": {
+    "text": "조이스틱 또는 화면을 터치해\n카메라를 움직일 수 있어요",
+    "event": "empty"
+  },
+  "camera02": {
+    "text": "한 번 움직여 보세요!",
+    "event": "move_camera"
+  },
+  "build01": {
+    "text": "건축 모드 버튼을 눌러\n 타일, 건축물을 설치할 수 있어요",
+    "event": "empty"
+  },
+  "build02": {
+    "text": "한 번 설치해 볼까요?",
+    "event": "build_tile"
+  },
+  "build03": {
+    "text": "자갈이 있는 땅에는\n설치할 수 없어요",
+    "event": "empty"
+  },
+  "build04": {
+    "text": "자갈에 평평한 땅을 설치해\n건축할 수 있는 땅을 만들 수 있어요",
+    "event": "empty"
+  },
+  "fog01": {
+    "text": "안개가 쳐져있는 지역은\n터치해서 안개를 걷힐 수 있어요",
+    "event": "empty"
+  },
+  "fog02": {
+    "text": "한 번 터치해 보세요!",
+    "event": "remove_fog"
+  },
+  "fog03": {
+      "text": "다이아몬드를 사용해\n바로 없앨 수 있습니다.",
+      "event": "use_diamond"
+  },
+  "end01": {
+    "text": "이제 나만의 마을을\n만들러 떠나볼까요?",
+    "event": "end_tutorial"
+  }
+}

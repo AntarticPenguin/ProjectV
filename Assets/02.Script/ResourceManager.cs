@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public class ResourceManager : MonoBehaviour
 {
@@ -27,11 +29,13 @@ public class ResourceManager : MonoBehaviour
 
 	private Dictionary<string, Sprite> _spriteMap = new Dictionary<string, Sprite>();
 	private Dictionary<string, GameObject> _tileMap = new Dictionary<string, GameObject>();
+	private Dictionary<string, TutorialScript> _scriptsMap = new Dictionary<string, TutorialScript>();
 
 	private void Awake()
 	{
 		LoadTileSprite();
 		LoadTilePrefab();
+		LoadScript();
 
 		DontDestroyOnLoad(gameObject);
 	}
@@ -56,7 +60,20 @@ public class ResourceManager : MonoBehaviour
 		}
 	}
 
+	private void LoadScript()
+	{
+		TextAsset textAsset = Resources.Load<TextAsset>("TutorialScript");
+		var jsonData = JsonConvert.DeserializeObject<Dictionary<string, JToken>>(textAsset.text);
+		foreach(var data in jsonData)
+		{
+			string id = data.Key;
+			TutorialScript value = data.Value.ToObject<TutorialScript>();
+			_scriptsMap.Add(id, value);
+		}
+	}
+
 	public Dictionary<string, Sprite> GetSpriteMap() { return _spriteMap; }
+	public Dictionary<string, TutorialScript> GetScriptMap() { return _scriptsMap; }
 
 	public GameObject GetTilePrefab(string name)
 	{
@@ -64,4 +81,13 @@ public class ResourceManager : MonoBehaviour
 			return _tileMap[name];
 		return null;
 	}
+}
+
+public class TutorialScript
+{
+	[JsonProperty("text")]
+	public string text;
+
+	[JsonProperty("event")]
+	public string eventName;
 }

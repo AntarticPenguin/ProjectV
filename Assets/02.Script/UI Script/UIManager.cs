@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -34,5 +34,12 @@ public class UIManager : MonoBehaviour
 		if (_contextDic.ContainsKey(name))
 			return _contextDic[name];
 		return null;
+	}
+
+	public GameObject _messageBox;
+
+	public void ShowMessageBox(string msg)
+	{
+		_messageBox.GetComponentInChildren<Text>().text = msg;
 	}
 }

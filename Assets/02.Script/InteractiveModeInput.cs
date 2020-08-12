@@ -1,15 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using Cinemachine;
 
 public class InteractiveModeInput : IInputMode
 {
 	private ICommand _cameraTarget;
-	private Camera _camera;
-
-	public InteractiveModeInput(Camera camera)
-	{
-		_camera = camera;
-	}
 
 	public void Update()
 	{
@@ -21,9 +16,9 @@ public class InteractiveModeInput : IInputMode
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 				if (Physics.Raycast(ray, out hit))
 				{
-					if(hit.collider.tag == "GoldChest")
+					if(hit.collider.tag == "InteractiveObject")
 					{
-						//보물상자 클릭. 골드획득
+						//상호작용이 가능한 오브젝트 실행
 						var comp = hit.collider.GetComponent<IInteractive>();
 						comp.Interact();
 					}
@@ -31,14 +26,16 @@ public class InteractiveModeInput : IInputMode
 					{
 						//카메라를 타겟 위치로 이동시킨다
 						Vector3 target = hit.collider.transform.position;
-						if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit))
+						CinemachineVirtualCamera camera = GameManager.Instance.GetMainCamera();
+
+						if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit))
 						{
 							if (hit.collider)
 							{
 								Vector3 orig = hit.collider.transform.position;
 								Vector3 newPos = target - orig;
 								newPos.y = 0;
-								_camera.transform.position += newPos;
+								camera.transform.position += newPos;
 							}
 						}
 					}

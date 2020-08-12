@@ -5,6 +5,11 @@ using UnityEngine;
 //UI의 뷰 모델 클래스
 public class Context : MonoBehaviour
 {
+	private void Start()
+	{
+		
+	}
+
 	public void SetValue(string path, Object obj)
 	{
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,9 +28,13 @@ public class GameManager : MonoBehaviour
 
 	private void Awake()
 	{
+		_mainCamera = GameObject.FindGameObjectWithTag("MainVirtualCamera").GetComponent<CinemachineVirtualCamera>();
 		DontDestroyOnLoad(gameObject);
 	}
 
 	public EditModeInput _editModeInput;
 	public InteractiveModeInput _interactiveModeInput;
+	private CinemachineVirtualCamera _mainCamera;
+
+	public CinemachineVirtualCamera GetMainCamera() { return _mainCamera; }
 }

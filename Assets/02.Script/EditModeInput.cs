@@ -13,6 +13,9 @@ public class EditModeInput : IInputMode
 	private bool _bCanBuild;
 	private GameObject _curHitObject;
 
+	public delegate void BuildTileDelegate();
+	public event BuildTileDelegate OnBuildTileCallback;
+
 	public int MinHeight { get; set; }
 	public int MaxHeight { get; set; }
 	public int MinXZ { get; set; }
@@ -146,6 +149,8 @@ public class EditModeInput : IInputMode
 				go.transform.rotation = _previewObject.transform.rotation;
 				go.transform.SetParent(_groundRoot.transform);
 				Object.Destroy(_curHitObject);
+
+				OnBuildTileCallback?.Invoke();
 			}
 			else
 			{

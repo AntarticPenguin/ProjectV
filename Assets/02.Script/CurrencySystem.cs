@@ -2,12 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum eCurrencyType
-{
-	GOLD,
-	TICKET,		//즉시 완료 티켓
-}
-
 public class CurrencySystem : MonoBehaviour
 {
 	private static CurrencySystem _instance;
@@ -39,7 +33,7 @@ public class CurrencySystem : MonoBehaviour
 	}
 
 	private int _remainGold;
-	private int _remainTicket;
+	private int _remainDiamond;
 
 	public delegate void CurrenyUpdateDelegate();
 	public CurrenyUpdateDelegate OnCurrencyUpdateCallback;
@@ -49,9 +43,9 @@ public class CurrencySystem : MonoBehaviour
 		return _remainGold;
 	}
 
-	public int GetRemainTicket()
+	public int GetRemainDiamond()
 	{
-		return _remainTicket;
+		return _remainDiamond;
 	}
 
 	public void AddGold(int amount)
@@ -61,9 +55,9 @@ public class CurrencySystem : MonoBehaviour
 		OnCurrencyUpdateCallback?.Invoke();
 	}
 
-	public void AddTicket(int amount)
+	public void AddDiamond(int amount)
 	{
-		_remainTicket += amount;
+		_remainDiamond += amount;
 		OnCurrencyUpdateCallback?.Invoke();
 	}
 
@@ -72,6 +66,17 @@ public class CurrencySystem : MonoBehaviour
 		if(cost <= _remainGold)
 		{
 			_remainGold -= cost;
+			OnCurrencyUpdateCallback?.Invoke();
+			return true;
+		}
+		return false;
+	}
+
+	public bool UseDiamond(int cost)
+	{
+		if (cost <= _remainDiamond)
+		{
+			_remainDiamond -= cost;
 			OnCurrencyUpdateCallback?.Invoke();
 			return true;
 		}

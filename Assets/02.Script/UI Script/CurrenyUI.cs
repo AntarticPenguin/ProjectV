@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CurrenyUI : MonoBehaviour
 {
 	public Text _textGold;
-	public Text _textTicket;
+	public Text _textDiamond;
 
 	// Start is called before the first frame update
 	void Start()
@@ -18,6 +18,6 @@ public class CurrenyUI : MonoBehaviour
 	void UpdateUI()
 	{
 		_textGold.text = CurrencySystem.Instance.GetRemainGold().ToString();
-		_textTicket.text = CurrencySystem.Instance.GetRemainTicket().ToString();
+		_textDiamond.text = CurrencySystem.Instance.GetRemainDiamond().ToString();
 	}
 }
