@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class UIManager : MonoBehaviour
 {
@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
+	public GameObject _hudCanvas;
 	public Dictionary<string, Context> _contextDic = new Dictionary<string, Context>();
 
 	public Context GetContext(string name)
@@ -36,10 +37,39 @@ public class UIManager : MonoBehaviour
 		return null;
 	}
 
-	public GameObject _messageBox;
-
-	public void ShowMessageBox(string msg)
+	public void ShowMessageBox(string text, UnityAction okCallback = null)
 	{
-		_messageBox.GetComponentInChildren<Text>().text = msg;
+		GameObject prefab = ResourceManager.Instance.GetUIPrefab("MessageBox");
+
+		if(prefab)
+		{
+			GameObject go = Instantiate(prefab);
+			go.transform.SetParent(_hudCanvas.transform);
+			go.transform.localPosition = Vector3.zero;
+			
+			MessageBox msgbox = go.GetComponent<MessageBox>();
+			msgbox.contentText.text = text;
+
+			if(okCallback != null)
+				msgbox.OnOkCallback += okCallback;
+		}
+	}
+
+
+	public void CreateTimeUI(GameObject target, float removeTime)
+	{
+		GameObject prefab = ResourceManager.Instance.GetUIPrefab("TimeRemainSlider");
+
+		if(prefab)
+		{
+			GameObject go = Instantiate(prefab);
+			go.transform.SetParent(target.transform);
+			Vector3 newPos = target.transform.position;
+			newPos.y += 2;
+			go.transform.position = newPos;
+
+			TimeSlider timeSlider = go.GetComponentInChildren<TimeSlider>();
+			timeSlider.SetTime(removeTime);
+		}
 	}
 }
