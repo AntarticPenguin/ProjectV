@@ -10,8 +10,12 @@ public class TimeSlider : MonoBehaviour
 
 	public float _totalTime;
 
-	public void SetTime(float time)
+	private GameObject _target;
+
+
+	public void SetTime(GameObject target, float time)
 	{
+		_target = target;
 		_totalTime = time;
 		_timeText.text = time.ToString();
 		StartCoroutine(SliderCoroutine(time));
@@ -27,6 +31,6 @@ public class TimeSlider : MonoBehaviour
 			_timeText.text = time.ToString("F1");
 		}
 
-		Destroy(gameObject);
+		Destroy(_target);
 	}
 }

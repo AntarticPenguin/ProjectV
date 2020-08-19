@@ -18,6 +18,10 @@ public class Fog : MonoBehaviour, IInteractive
 		if(CurrencySystem.Instance.UseGold(_cost))
 		{
 			UIManager.Instance.CreateTimeUI(gameObject, _removeTime);        //남은시간 UI 표시
+			if(GameManager.Instance._isPlayingTutorial)
+			{
+				TutorialPlay.Instance._bRemoveFogSuccess = true;
+			}
 		}
 		else
 		{

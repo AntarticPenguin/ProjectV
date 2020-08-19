@@ -27,6 +27,7 @@ public class PlayerInput : MonoBehaviour
 		_cameraMode = new InteractiveModeInput();
 		_editMode = new EditModeInput(_camera, groundObject);
 
+		GameManager.Instance._playerInput = this;
 		GameManager.Instance._interactiveModeInput = _cameraMode;
 		GameManager.Instance._editModeInput = _editMode;
 		_inputMode = _cameraMode;

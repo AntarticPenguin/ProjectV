@@ -64,12 +64,10 @@ public class UIManager : MonoBehaviour
 		{
 			GameObject go = Instantiate(prefab);
 			go.transform.SetParent(target.transform);
-			Vector3 newPos = target.transform.position;
-			newPos.y += 2;
-			go.transform.position = newPos;
+			go.transform.localPosition = Vector3.zero;
 
 			TimeSlider timeSlider = go.GetComponentInChildren<TimeSlider>();
-			timeSlider.SetTime(removeTime);
+			timeSlider.SetTime(target, removeTime);
 		}
 	}
 }

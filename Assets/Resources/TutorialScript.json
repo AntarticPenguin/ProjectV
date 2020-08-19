@@ -8,35 +8,43 @@
     "event": "move_camera"
   },
   "build01": {
-    "text": "건축 모드 버튼을 눌러\n 타일, 건축물을 설치할 수 있어요",
+    "text": "하단의 건축 모드 버튼을 눌러\n 타일, 건축물을 설치할 수 있어요",
     "event": "empty"
   },
   "build02": {
-    "text": "한 번 설치해 볼까요?",
-    "event": "build_tile"
+    "text": "방향키와 확정버튼을 눌러\n 설치할 수 있어요",
+    "event": "empty"
   },
   "build03": {
-    "text": "자갈이 있는 땅에는\n설치할 수 없어요",
+    "text": "참고로 자갈이 있는 땅에는\n설치할 수 없어요",
     "event": "empty"
   },
   "build04": {
     "text": "자갈에 평평한 땅을 설치해\n건축할 수 있는 땅을 만들 수 있어요",
     "event": "empty"
   },
+  "build05": {
+    "text": "한 번 설치해보세요!",
+    "event": "build_tile"
+  },
   "fog01": {
     "text": "안개가 쳐져있는 지역은\n터치해서 안개를 걷힐 수 있어요",
     "event": "empty"
   },
   "fog02": {
+    "text": "안개 제거에는 시간이 걸립니다.",
+    "event": "empty"
+  },
+  "fog03": {
     "text": "한 번 터치해 보세요!",
     "event": "remove_fog"
   },
-  "fog03": {
-      "text": "다이아몬드를 사용해\n바로 없앨 수 있습니다.",
-      "event": "use_diamond"
+  "fog04": {
+    "text": "다이아몬드를 사용해\n바로 없앨 수 있습니다.",
+    "event": "empty"
   },
   "end01": {
     "text": "이제 나만의 마을을\n만들러 떠나볼까요?",
-    "event": "end_tutorial"
+    "event": "empty"
   }
 }

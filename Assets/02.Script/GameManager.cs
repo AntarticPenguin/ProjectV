@@ -29,12 +29,18 @@ public class GameManager : MonoBehaviour
 	private void Awake()
 	{
 		_mainCamera = GameObject.FindGameObjectWithTag("MainVirtualCamera").GetComponent<CinemachineVirtualCamera>();
+		_isPlayingTutorial = false;
+		_tutorialComplete = false;
 		DontDestroyOnLoad(gameObject);
 	}
 
+	public PlayerInput _playerInput;
 	public EditModeInput _editModeInput;
 	public InteractiveModeInput _interactiveModeInput;
 	private CinemachineVirtualCamera _mainCamera;
 
 	public CinemachineVirtualCamera GetMainCamera() { return _mainCamera; }
+
+	public bool _tutorialComplete;
+	public bool _isPlayingTutorial;
 }

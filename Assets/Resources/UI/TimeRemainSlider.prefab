@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 411322142006837105}
   - component: {fileID: 411322142006837106}
   - component: {fileID: 411322142006837107}
+  - component: {fileID: 4912220016471781220}
   m_Layer: 0
   m_Name: TimeRemainSlider
   m_TagString: Untagged
@@ -112,6 +113,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be241699d1839b34c8f15f2452f016b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4912220016471781220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411322142006837108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed84d10e09a01164ba4dfb502cf7e523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slider: {fileID: 4114971757658831179}
+  _timeText: {fileID: 4114971757223972234}
+  _totalTime: 5
 --- !u!1 &4114971755838531508
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,7 +341,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4114971757658831178}
   - component: {fileID: 4114971757658831179}
-  - component: {fileID: 5019922300340015064}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -406,21 +421,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5019922300340015064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4114971757658831157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed84d10e09a01164ba4dfb502cf7e523, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _slider: {fileID: 4114971757658831179}
-  _timeText: {fileID: 4114971757223972234}
-  _totalTime: 5
 --- !u!1 &4114971757688636830
 GameObject:
   m_ObjectHideFlags: 0

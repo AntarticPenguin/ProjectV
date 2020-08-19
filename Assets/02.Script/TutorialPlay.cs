@@ -2,9 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TutorialPlay : MonoBehaviour
 {
+	private static TutorialPlay _instance;
+
+	public static TutorialPlay Instance
+	{
+		get
+		{
+			if (_instance == null)
+			{
+				_instance = FindObjectOfType<TutorialPlay>();
+				if(_instance == null)
+				{
+					GameObject go = new GameObject();
+					go.name = "TutorialPlayInstance";
+					go.AddComponent<TutorialPlay>();
+				}
+			}
+			return _instance;
+		}
+	}
+
 	enum eEventState
 	{
 		NONE,		//실행중인 이벤트 없음
@@ -17,6 +38,7 @@ public class TutorialPlay : MonoBehaviour
 	public GameObject _blockPanel;
 	public GameObject _guideBox;
 	public Text _guideText;
+	public Button _skipButton;
 
 	bool _isPlaying;
 
@@ -28,8 +50,11 @@ public class TutorialPlay : MonoBehaviour
 	void Start()
     {
 		_isPlaying = true;
+		GameManager.Instance._isPlayingTutorial = _isPlaying;
 		_eventState = eEventState.NONE;
 		_enumerator = ResourceManager.Instance.GetScriptMap().GetEnumerator();
+
+		_skipButton.onClick.AddListener(EndTutorial);
 
 		//이벤트 관련 변수 초기화
 		InitEvent();
@@ -83,21 +108,31 @@ public class TutorialPlay : MonoBehaviour
 			{
 				_curEventName = script.eventName;
 				_eventState = eEventState.START;
+
+				if(_curEventName == "build_tile")
+				{
+					GameManager.Instance._playerInput.OnEditMode();
+				}
+				else if(_curEventName == "remove_fog")
+				{
+					GameManager.Instance._playerInput.OnCameraMode();
+				}
 			}
 		}
 		else
 		{
-			_isPlaying = false;
-			GameManager.Instance._editModeInput.OnBuildTileCallback -= BuildTileSuccess;
+			EndTutorial();
 		}
 	}
+
+	public bool _bBuildTileSuccess;
+	public bool _bRemoveFogSuccess;
 
 	void InitEvent()
 	{
 		_cameraLastPos = Camera.main.transform.position;
 		_bBuildTileSuccess = false;
-
-		GameManager.Instance._editModeInput.OnBuildTileCallback += BuildTileSuccess;
+		_bRemoveFogSuccess = false;
 	}
 
 	bool CheckEventState(string name)
@@ -109,14 +144,10 @@ public class TutorialPlay : MonoBehaviour
 				result = EventMoveCamera();
 				break;
 			case "build_tile":
-				result = EventBuileTile();
+				result = _bBuildTileSuccess;
 				break;
 			case "remove_fog":
-				result = EventRemoveFog();
-				break;
-			case "use_diamond":
-				break;
-			case "end_tutorial":
+				result = _bRemoveFogSuccess;
 				break;
 			default:
 				break;
@@ -138,19 +169,23 @@ public class TutorialPlay : MonoBehaviour
 		return false;
 	}
 
-	bool _bBuildTileSuccess;
-	bool EventBuileTile()
+	void EndTutorial()
 	{
-		return _bBuildTileSuccess;
+		//튜토리얼을 끝내고 새 월드를 연다.
+		_isPlaying = false;
+		GameManager.Instance._isPlayingTutorial = false;
+		GameManager.Instance._tutorialComplete = true;
+
+		StartCoroutine(LoadPlayerWorldAsync("PlayerWorld"));
 	}
 
-	void BuildTileSuccess()
+	IEnumerator LoadPlayerWorldAsync(string sceneName)
 	{
-		_bBuildTileSuccess = true;
-	}
+		AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
-	bool EventRemoveFog()
-	{
-		return false;
+		while(!operation.isDone)
+		{
+			yield return null;
+		}
 	}
 }
